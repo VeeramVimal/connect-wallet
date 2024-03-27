@@ -65,8 +65,7 @@ const ListReferData = () => {
       <table className="bf-table mb-0 text-center">
         <thead className="table-top-header">
           <tr>
-            <th className="table-top-header-first">Referral Commission</th>
-            <th className="table-top-header-last">Purchase Commission</th>
+            <th className="table-top-header-first">User Details</th>
           </tr>
         </thead>
       </table>
@@ -74,13 +73,13 @@ const ListReferData = () => {
         <thead>
           <tr>
             <th>User ID </th>
+            <th>Username</th>
+            <th>UserStatus</th>
+            <th>message</th>
+            {/* <th>User ID</th>
             <th>Date & time</th>
             <th>Eligibilty statement</th>
-            <th>Earned</th>
-            <th>User ID</th>
-            <th>Date & time</th>
-            <th>Eligibilty statement</th>
-            <th>Common Earned</th>
+            <th>Common Earned</th> */}
           </tr>
         </thead>
         <tbody>

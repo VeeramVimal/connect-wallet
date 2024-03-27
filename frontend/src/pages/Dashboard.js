@@ -9,16 +9,6 @@ import { API_URL_BASE, REACT_APP_URL } from "../config/config";
 import ListReferData from "./referral/listReferData";
 import Web3 from "web3";
 
-// import { RiAccountPinCircleLine } from "react-icons/ri";
-// import { FaTelegramPlane, FaUserFriends } from "react-icons/fa";
-// import { AiOutlineTwitter } from "react-icons/ai";
-// import { SiDiscord } from "react-icons/si";
-// import { CopyToClipboard } from "react-copy-to-clipboard";
-// import { TbLayoutDashboard } from 'react-icons/tb';
-// import { MdContentCopy } from "react-icons/md";
-// import { useNavigate } from 'react-router-dom';
-// import CopyToClipboard from "copy-to-clipboard";
-// import moment from 'moment/moment';
 class Dashboard extends React.Component {
   constructor(props) {
     super(props);
@@ -30,14 +20,6 @@ class Dashboard extends React.Component {
       connected: false,
       userId: "",
       useraddress: "",
-      userpercentage: "",
-      twitter: "",
-      discord: "",
-      telegram: "",
-      refer_a_friend: "",
-      copySuccess: false,
-      copied: false,
-      canvasRef: "",
       listData: [],
     };
   }
@@ -70,61 +52,12 @@ class Dashboard extends React.Component {
       console.log("MetaMask is not installed.");
     }
   }
-  // gainReferPercentage = async () => {
-  //   const account = await window.ethereum.request({
-  //     method: "eth_requestAccounts",
-  //   });
-  //   var useraddress = account[0];
-  //   console.log("useraddress===account[0]===", account[0]);
-  //   if (useraddress) {
-  //     await axios({
-  //       method: "POST",
-  //       url: `${API_URL_BASE}/gain-refer-percentage`,
-  //       headers: {
-  //         "Access-Control-Allow-Origin": "*",
-  //         "Content-Type": "application/json",
-  //       },
-  //       data: {
-  //         toUserAddress: useraddress,
-  //       },
-  //     })
-  //       .then((res) => {
-  //         // window.location.reload()
-  //       })
-  //       .catch((err) => console.log(err));
-  //   }
-  // };
-  // getPercentageDetails = async (useraddress) => {
-  //   if (useraddress) {
-  //     await axios({
-  //       method: "POST",
-  //       // url: 'http://localhost:4000/single-percentage',
-  //       url: `${API_URL_BASE}/single-percentage`,
-  //       headers: {
-  //         "Access-Control-Allow-Origin": "*",
-  //         "Content-Type": "application/json",
-  //       },
-  //       data: {
-  //         useraddress: useraddress,
-  //       },
-  //     })
-  //       .then((res) => {
-  //         this.setState({
-  //           twitter: res.data.data.follow_twitter,
-  //           discord: res.data.data.join_discord,
-  //           telegram: res.data.data.join_telegram,
-  //           refer_a_friend: res.data.data.refer_friend,
-  //         });
-  //       })
-  //       .catch((err) => console.log(err));
-  //   }
-  // };
+ 
   getaddress = async () => {
     const account = await window.ethereum.request({
       method: "eth_requestAccounts",
     });
     var useraddress = account[0];
-    console.log("useraddress=======", useraddress);
     this.setState({
       useraddress: account[0],
     });
@@ -156,59 +89,6 @@ class Dashboard extends React.Component {
     //   .catch((err) => console.log(err));
   };
 
-  updateUserPercentage = async (percentageData, clickPercentageData) => {
-    const account = await window.ethereum.request({
-      method: "eth_requestAccounts",
-    });
-    var useraddress = account[0];
-    var twitter, discord, telegram, refer_a_friend;
-    if (clickPercentageData === 60) twitter = 60;
-    else if (clickPercentageData === 70) discord = 70;
-    else if (clickPercentageData === 80) telegram = 80;
-    else if (clickPercentageData === 90) refer_a_friend = 90;
-    await axios({
-      method: "PUT",
-      // url: 'http://localhost:4000/update-percentage',
-      url: `${API_URL_BASE}/update-percentage`,
-      headers: {
-        "Access-Control-Allow-Origin": "*",
-        "Content-Type": "application/json",
-      },
-      data: {
-        useraddress: useraddress,
-        percentage: percentageData,
-        follow_twitter: twitter,
-        join_discord: discord,
-        join_telegram: telegram,
-        refer_friend: refer_a_friend,
-      },
-    })
-      .then((res) => {
-        // window.location.reload();
-      })
-      .catch((err) => console.log(err));
-  };
-  //create a new refers details
-  // newRefers = async () => {
-  //   const account = await window.ethereum.request({
-  //     method: "eth_requestAccounts",
-  //   });
-  //   var useraddress = account[0];
-  //   await axios({
-  //     method: "POST",
-  //     url: `${API_URL_BASE}/new-refer-friend`,
-  //     headers: {
-  //       "Access-Control-Allow-Origin": "*",
-  //       "Content-Type": "application/json",
-  //     },
-  //     data: {
-  //       fromUseraddress: useraddress,
-  //       toUserAddress: "",
-  //     },
-  //   })
-  //     .then((res) => {})
-  //     .catch((err) => console.log(err));
-  // };
 
   async componentDidMount() {
     await this.getaddress();
@@ -258,57 +138,7 @@ class Dashboard extends React.Component {
     sessionStorage.removeItem("accessToken");
     window.location.href = "/login"
   };
-  // handleclick = (event) => {
-  //   var percentageData = this.state.userpercentage;
-  //   var twitter, discord, telegram, refer_a_friend
-  //   var clickPercentage;
-
-  //   switch (event.target.name) {
-  //     case 'twitter':
-  //       return (
-  //         this.state.userpercentage === 50 && (
-  //           this.setState({ twitter: 60 }),
-  //           this.setState({ userpercentage: 60 }),
-  //           this.updateUserPercentage(percentageData = 60, clickPercentage = 60),
-  //           window.open("https://twitter.com/d_ecosystem", "_blank")
-  //         )
-  //       )
-  //     case 'discord':
-  //       return (
-  //         this.state.twitter === 60 && (
-  //           this.setState({ discord: 70 }),
-  //           this.setState({ userpercentage: 70 }),
-  //           this.updateUserPercentage(percentageData = 70, clickPercentage = 70),
-  //           window.open("https://discord.com/invite/c5EbX2WgQJ", "_blank")
-  //         )
-  //       )
-  //     case 'telegram':
-  //       return (
-  //         this.state.discord === 70 && (
-  //           this.setState({ telegram: 80 }),
-  //           this.setState({ userpercentage: 80 }),
-  //           this.updateUserPercentage(percentageData = 80, clickPercentage = 80),
-  //           window.open("https://t.me/d_ecosystem_group", "_blank")
-  //         )
-  //       )
-  //     case 'refer_a_friend':
-  //       return (
-  //         (this.state.userpercentage === 100) ? (
-  //           this.setState({ refer_a_friend: 100 }),
-  //           this.setState({ userpercentage: 100 }),
-  //           this.setState({ copied: true })
-  //         ) : (this.state.telegram === 80) && (
-  //           this.setState({ refer_a_friend: 90 }),
-  //           this.setState({ userpercentage: 90 }),
-  //           this.updateUserPercentage(percentageData = 90, clickPercentage = 90),
-  //           this.setState({ copied: true }),
-  //           this.newRefers()
-  //         )
-  //       )
-  //     default:
-  //       break;
-  //   }
-  // }
+  
   render() {
     return (
       <div>
@@ -349,16 +179,7 @@ class Dashboard extends React.Component {
                           <p className="mb-0">{this.state.useraddress}</p>
                         </div>
                       </div>
-                      {/* <ProgressBar
-                        className='eligibility-progress-bar'
-                        completed={this.state.userpercentage}
-                        bgColor="#1b9ffe"
-                        height="20px"
-                        baseBgColor="#FFFFFF"
-                        labelColor="#fff4f4"
-                        labelSize="14px"
-                        maxCompleted={100}
-                      /> */}
+                      
                     </div>
                   </div>
 
