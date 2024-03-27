@@ -1,0 +1,12 @@
+.banner-overral-top-section {
+    min-height: 100vh;
+    /* background-image: url("./assest/bg\ 2.jpg"); */
+  }
+
+  .fixed-top {
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    z-index: 99 !important;
+  }
