@@ -27,6 +27,9 @@ const ListReferData = () => {
       socket.on("disconnect", function () {
         console.log("socket disconnected");
       });
+      socket.on('error', (error) => {
+        console.error('Socket.io error:', error);
+      });
     }
     return () => {
       if (socketUnsubscribe) {
