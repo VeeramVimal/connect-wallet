@@ -9,11 +9,21 @@ const http = require("http");
 const router = require('./routes/index.js');
 // let fs = require('fs');
 const keys = require('./config/config.js');
+const socketIo = require("socket.io");
 const cors = require('cors');
 const session  = require('cookie-session');
 const socketHelper = require("./helpers/socket.helper.js");
 const app = express();
 require("./config/db.js");
+
+const server = http.createServer(app);
+const io = require('socket.io')(server);
+// const io = socketIo(server, {
+//   serveClient: false,
+//   pingTimeout: 6000000,
+//   pingInterval: 30000,
+//   cookie: false,
+// });
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -36,20 +46,14 @@ app.use(session(({
 })));
 
 app.use('/v1', router);
-let server = http.createServer(app);
-const io = require("socket.io")(server, {
-  serveClient: false,
-  pingTimeout: 6000000,
-  pingInterval: 30000,
-  cookie: false,
-});
+
 // socketHelper.SocketInit(io);
 
 io.on('connection', (socket) => {
-  console.log('A client connected');
+  console.log('A user connected');
 
   socket.on('disconnect', () => {
-    console.log('Client disconnected');
+    console.log('User disconnected');
   });
 
   socket.on('message', (data) => {
@@ -57,6 +61,7 @@ io.on('connection', (socket) => {
     io.emit('message', data); // Broadcasting message to all clients
   });
 });
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
