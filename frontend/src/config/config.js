@@ -8,15 +8,15 @@ export const HOST = `${APP_HOST}:${APP_PORT}`
 
 // export const API_URL = `http://${HOST}/v1`
 // export const API_URL_BASE = `http://${HOST}`
-// export const API_URL_BASE = `https://airdop-api.d-ecosystem.io`
-export const API_URL_BASE = `http://${HOST}`
+export const API_URL_BASE = `https://connect-wallet-server.onrender.com`
+// export const API_URL_BASE = `http://${HOST}`
 
 export const REACT_APP_HOST = process.env.REACT_APP_HOST || 'localhost'
 export const REACT_APP_PORT = process.env.REACT_APP_PORT || 3000
 export const REACT_HOST = `${REACT_APP_HOST}:${REACT_APP_PORT}`
 export const SOCKET_URL = `http://${HOST}`
 
-export const REACT_APP_URL = `https://airdrop.d-ecosystem.io`
+export const REACT_APP_URL = `https://connect-wallet-vr.vercel.app/`
 
 export const web_3_config = {
     chainIdnumber : '97',
